@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        .maindiv{
+            position: relative;
+            width: 640px;
+            height: 364px;
+            /* 实现盒子在body中居中显示 */
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto auto;
+        }
+        .maindiv .logo{
+            /* 继承，将子盒子放在右上角 */
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            font-size: 30px;
+            margin-top:16px;
+            margin-right: 15px;
+        }
+        input{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>用js实现简单的视频播放器</h1>
+<div class="maindiv">
+    <div class="logo" id ="logo"></div>
+    <video src="D:\code\videoMP4\v02004a40000bproefir863oaub47slg" id="video" controls></video>
+</div>
+
+<input type="button" value="P/S" id="play">
+<input type="button" value="Next" id="next">
+<input type="button" value="Pre" id="pre">
+<input type="number"  value="" id="videoPage">
+<input type="button" value="skip" id="skip">
+<input type="text" value="0s" id="curenttime">
+</body>
+
+
+<script>
+    var mp4=["v02004a40000bproefir863oaub47slg",
+        "v02004a40000bproicl7gl1h25fgjoeg",
+        "v02004a50000bpmepbubn5v2f7sn39og",
+        "v02004a80000bn2mnkonrm1ii1qe45bg",
+        "v02004ac0000bt20l8lo827ubql9vlt0",
+        "v02004b40000bnac1ktjfrmsnk5rbis0",
+        "v02004b40000bo039k481ukr122vand0",
+        "v02004b70000bqud654qs4skvnoev5k0",
+        "v0201ag10000caikc13c77udap1dkdb0"];
+    var myVideo=document.getElementById("video");
+    var play =document.getElementById("play");
+    var next=document.getElementById("next");
+    var pre=document.getElementById("pre");
+    var videoPage =document.getElementById("videoPage");
+    var skip=document.getElementById("skip");
+    var logoDom=document.getElementById("logo");
+    var time=document.getElementById("curenttime");
+
+    function currentVideoUI(i){
+        logoDom.textContent="NO." + (i+1)  +"/"+mp4.length;
+    }
+
+    window.setInterval(function(){
+        time.value=parseInt(myVideo.currentTime)+"s";
+    },1000)
+
+    var i=0;
+    skip.onclick=function(){
+        if(videoPage.value>=0 && videoPage.value <mp4.length){
+            i=videoPage.value;
+            myVideo.src ="D:\\code\\videoMP4\\"+mp4[i];
+            myVideo.play();
+            //videoPage.ivalue获取的数值为String类型，利用赋值做强制转换
+            i++;
+            i=i-2;
+            currentVideoUI(i);
+        }
+        else{
+            alert("error! 请输入0—117之间的数字");
+        }
+
+    }
+    play.onclick = function(){
+        if(myVideo.paused){
+
+            myVideo.play();
+            currentVideoUI(i);
+        }
+        else{
+            myVideo.pause();
+            currentVideoUI(i);
+        }
+    };
+    i=videoPage.value;
+    next.onclick=function(){
+        if(i<mp4.length-1){
+            i++;
+        }
+        else{
+            i=0;
+        }
+        myVideo.src ="D:\\code\\videoMP4\\"+mp4[i];
+        myVideo.play();
+        currentVideoUI(i);
+        videoPage.value=i;
+    }
+    pre.onclick=function(){
+        if(i==0){
+            i=mp4.length-1;
+        }
+        else{
+            i--;
+        }
+        myVideo.src ="D:\\code\\videoMP4\\"+mp4[i];
+        myVideo.play();
+        currentVideoUI(i);
+        videoPage.value=i;
+    }
+
+</script>
+</html>

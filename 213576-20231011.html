@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="Generator" content="EditPlus®" />
+    <meta name="Author" content="" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>20213574-20231011</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        button {
+            background-color: #4a85dd;
+            width: auto;
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+<video
+        src="D:\code\videoMP4\v02004a40000bproefir863oaub47slg"
+        controls="controls"
+        id="video1"
+></video>
+<div>
+    <button onclick="next()">下一集</button>
+    <button onclick="pre()">上一集</button>
+    <button onclick="playPause()">播放暂停</button>
+    <button onclick="skip()">跳转</button>
+    <input type="text" value ="page"  id="videoPage"></input>
+    <!-- <button onclick="fill()">全屏</button> -->
+    <!-- <span>进度条:</span>
+    <progress value="0" max="0" id="pro"></progress> -->
+    <!-- <span>音量:</span>
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      οnchange="setvalue()"
+      id="ran"
+    /> -->
+</div>
+</body>
+<script>
+    var myVideo = document.getElementById("video1");
+    var videoPage=document.getElementById("videoPage")
+    // var pro = document.getElementById("pro");
+    // var ran = document.getElementById("ran");
+    var index = 0;
+    var videos = [
+        "v02004a40000bproefir863oaub47slg",
+        "v02004a40000bproicl7gl1h25fgjoeg",
+        "v02004a50000bpmepbubn5v2f7sn39og",
+        "v02004a80000bn2mnkonrm1ii1qe45bg",
+        "v02004ac0000bt20l8lo827ubql9vlt0",
+        "v02004b40000bnac1ktjfrmsnk5rbis0",
+        "v02004b40000bo039k481ukr122vand0",
+        "v02004b70000bqud654qs4skvnoev5k0",
+        "v0201ag10000caikc13c77udap1dkdb0",
+    ];
+    function skip(){
+        if (0<=videoPage.value  && videoPage.value <videos.length) {
+            index=videoPage.value;
+
+            myVideo.src = "D:\\code\\videoMP4\\" + videos[index];
+        }else{
+            alert("数字不在范围内，请输入0-"+(videos.length-1));
+        }
+
+    }
+    function next() {
+        if (index < videos.length - 1) {
+            index++;
+        } else {
+            index = 0;
+        }
+        myVideo.src = "D:\\code\\videoMP4\\" + videos[index];
+        videoPage.value=index;
+    }
+    function pre() {
+        if (index == 0) {
+            index = videos.length - 1;
+        } else {
+            index--;
+        }
+        myVideo.src = "D:\\code\\videoMP4\\" + videos[index];
+        videoPage.value=index;
+    }
+
+    function playPause() {
+        if (myVideo.paused) {
+            myVideo.play();
+        } else {
+            myVideo.pause();
+        }
+    }
+
+    // function fill() {
+    //   myVideo.style = "width: 100%; height: 100%; object-fit: fill";
+    // }
+    // function pro1() {
+    //   pro.max = myvideo.duration;
+    //   pro.value = myvideo.currentTime;
+    // }
+    // //拖动range进行调音量大小
+    // function setvalue() {
+    //   myvideo.volume = ran.value / 100;
+    //   myvideo.muted = false;
+    // }
+</script>
+</html>
